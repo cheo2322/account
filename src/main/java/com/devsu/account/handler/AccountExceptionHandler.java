@@ -1,6 +1,7 @@
 package com.devsu.account.handler;
 
 import com.devsu.account.handler.exception.DuplicateEntityException;
+import com.devsu.account.handler.exception.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,8 +13,14 @@ public class AccountExceptionHandler {
 
   @ExceptionHandler(DuplicateEntityException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public ResponseEntity<AccountError> handleUnexpectedException(DuplicateEntityException ex) {
+  public ResponseEntity<AccountError> handleDuplicateEntityException(DuplicateEntityException ex) {
     return new ResponseEntity<>(new AccountError(ex.getMessage()), HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(EntityNotFoundException.class)
+  @ResponseStatus(HttpStatus.NOT_FOUND)
+  public ResponseEntity<AccountError> handleEntityNotFoundException(EntityNotFoundException ex) {
+    return new ResponseEntity<>(new AccountError(ex.getMessage()), HttpStatus.NOT_FOUND);
   }
 
   @ExceptionHandler(Exception.class)

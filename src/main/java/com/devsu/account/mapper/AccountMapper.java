@@ -7,8 +7,8 @@ public class AccountMapper {
 
   public static Account recordToAccount(AccountRecord accountRecord) {
     Account account = new Account();
-    account.setClientIdentification(account.getClientIdentification());
-    account.setType(Account.AccountType.valueOf(accountRecord.type()));
+    account.setClientIdentification(accountRecord.clientIdentification());
+    account.setType(Account.AccountType.valueOf(accountRecord.type().toUpperCase()));
     account.setStatus(accountRecord.status());
     account.setInitialBalance(accountRecord.initialBalance());
 
