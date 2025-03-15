@@ -17,8 +17,10 @@ public class Account {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
 
+  private String clientIdentification;
+
   @Column(unique = true)
-  private Integer number;
+  private String number;
 
   private AccountType type;
   private Long initialBalance;
