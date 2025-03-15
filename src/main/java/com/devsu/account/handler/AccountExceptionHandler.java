@@ -1,5 +1,6 @@
 package com.devsu.account.handler;
 
+import com.devsu.account.handler.exception.DuplicateEntityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -8,6 +9,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class AccountExceptionHandler {
+
+  @ExceptionHandler(DuplicateEntityException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  public ResponseEntity<AccountError> handleUnexpectedException(DuplicateEntityException ex) {
+    return new ResponseEntity<>(new AccountError(ex.getMessage()), HttpStatus.BAD_REQUEST);
+  }
 
   @ExceptionHandler(Exception.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

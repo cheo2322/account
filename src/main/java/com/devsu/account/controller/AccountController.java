@@ -35,7 +35,7 @@ public class AccountController {
     return ResponseEntity.ok(accountService.getAccount(accountNumber));
   }
 
-  @PutMapping
+  @PatchMapping
   public ResponseEntity<Void> updateAccount(@RequestBody AccountRecord accountRecord) {
     accountService.updateAccount(accountRecord);
 

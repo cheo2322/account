@@ -22,7 +22,7 @@ public class Account {
   private AccountType type;
 
   private Long initialBalance;
-  private Boolean state;
+  private Boolean status;
 
   public enum AccountType {
     SAVES,
