@@ -1,10 +1,6 @@
 package com.devsu.account.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +10,7 @@ import lombok.Setter;
 public class Account {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String clientIdentification;
@@ -22,7 +18,9 @@ public class Account {
   @Column(unique = true)
   private String number;
 
+  @Enumerated(EnumType.STRING)
   private AccountType type;
+
   private Long initialBalance;
   private Boolean state;
 
