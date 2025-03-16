@@ -36,7 +36,7 @@ public class AccountServiceImpl implements AccountService {
         unused -> System.out.println("Good!"),
         throwable -> System.out.println(throwable.getMessage()));
 
-    clientResponse.block();
+    clientResponse.block(); // TODO: make the whole application reactive
 
     accountRepository.save(account);
   }
