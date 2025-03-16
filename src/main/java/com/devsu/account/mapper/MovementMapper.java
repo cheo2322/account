@@ -14,7 +14,7 @@ public class MovementMapper {
 
   public static MovementRecord movementToRecord(Movement movement) {
     return new MovementRecord(
-        movement.getDate(),
+        movement.getDate().toLocalDate(),
         movement.getType().toString(),
         movement.getValue(),
         movement.getBalance(),

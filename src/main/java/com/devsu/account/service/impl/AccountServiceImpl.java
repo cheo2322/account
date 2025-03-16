@@ -40,7 +40,9 @@ public class AccountServiceImpl implements AccountService {
         clientService.checkClientExistence(accountRecord.clientIdentification());
 
     Account account = AccountMapper.recordToAccount(accountRecord);
-    account.setNumber(this.generateAccountNumber());
+    if (StringUtils.isBlank(accountRecord.number())) {
+      account.setNumber(this.generateAccountNumber());
+    }
 
     clientResponse.subscribe(
         unused -> System.out.println("Good!"),
@@ -51,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
     accountRepository.save(account);
 
     Movement movement = new Movement();
-    movement.setType(Movement.MovementType.SAVE);
+    movement.setType(account.getType());
     movement.setValue(accountRecord.initialBalance());
     movement.setBalance(accountRecord.initialBalance());
     movement.setAccount(account);

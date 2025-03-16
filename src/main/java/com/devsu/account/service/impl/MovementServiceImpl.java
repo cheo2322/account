@@ -49,18 +49,20 @@ public class MovementServiceImpl implements MovementService {
     Movement lastMovement = lastMovementDB.get();
     Movement movement = MovementMapper.recordToMovement(movementRecord);
 
-    if (movementValue < 0) {
-      if (Math.abs(movementValue) > lastMovement.getBalance()) {
-        throw new IllegalMovementException("Movement not allowed.");
-      }
-
-      movement.setType(Movement.MovementType.WITHDRAW);
-    } else {
-      movement.setType(Movement.MovementType.SAVE);
+    if (movementValue < 0 && Math.abs(movementValue) > lastMovement.getBalance()) {
+      throw new IllegalMovementException("Movement not allowed.");
     }
 
+    Account account = accountByNumber.get();
+
+    movement.setType(account.getType());
     movement.setBalance(lastMovement.getBalance() + movementValue);
-    movement.setAccount(accountByNumber.get());
+    movement.setAccount(account);
+
+    account.setInitialBalance(movement.getBalance());
+
+    movementRepository.save(movement);
+    accountRepository.save(account);
   }
 
   @Override

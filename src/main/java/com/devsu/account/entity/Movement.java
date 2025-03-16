@@ -1,7 +1,5 @@
 package com.devsu.account.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -11,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +26,7 @@ public class Movement {
   private LocalDateTime date = LocalDateTime.now();
 
   @Enumerated(EnumType.STRING)
-  private MovementType type;
+  private Account.AccountType type;
 
   @Column(name = "movement_value")
   private Double value;
@@ -37,9 +36,4 @@ public class Movement {
   @ManyToOne
   @JoinColumn(name = "account_number", referencedColumnName = "number", nullable = false)
   private Account account;
-
-  public enum MovementType {
-    SAVE,
-    WITHDRAW
-  }
 }

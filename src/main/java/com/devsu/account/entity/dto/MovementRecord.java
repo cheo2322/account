@@ -1,6 +1,6 @@
 package com.devsu.account.entity.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record MovementRecord(
-    LocalDateTime date, String type, Double value, Double balance, String accountNumber) {}
+    LocalDate date, String type, Double value, Double balance, String accountNumber) {}
