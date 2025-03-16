@@ -1,23 +1,23 @@
-CREATE TABLE IF NOT EXISTS account (
-    id SERIAL PRIMARY KEY,
-    client_identification VARCHAR(10) NOT NULL,
-    number VARCHAR(6) NOT NULL UNIQUE,
-    type VARCHAR(10),
-    initial_balance DOUBLE PRECISION NOT NULL,
-    state BOOLEAN NOT NULL
-);
+-- CREATE TABLE IF NOT EXISTS account (
+--     id SERIAL PRIMARY KEY,
+--     client_identification VARCHAR(10) NOT NULL,
+--     number VARCHAR(6) NOT NULL UNIQUE,
+--     type VARCHAR(10),
+--     initial_balance DOUBLE PRECISION NOT NULL,
+--     satatus BOOLEAN NOT NULL
+-- );
+--
+-- CREATE TABLE IF NOT EXISTS movement (
+--     id SERIAL PRIMARY KEY,
+--     movement_date TIMESTAMP NOT NULL,
+--     type VARCHAR(10),
+--     movement_value DOUBLE PRECISION NOT NULL,
+--     balance DOUBLE PRECISION NOT NULL,
+--     account_number VARCHAR(6),
+--     FOREIGN KEY (account_number) REFERENCES account (number)
+-- );
 
-CREATE TABLE IF NOT EXISTS movement (
-    id SERIAL PRIMARY KEY,
-    movement_date TIMESTAMP NOT NULL,
-    type VARCHAR(10),
-    movement_value DOUBLE PRECISION NOT NULL,
-    balance DOUBLE PRECISION NOT NULL,
-    account_number VARCHAR(6),
-    FOREIGN KEY (account_number) REFERENCES account (number)
-);
-
--- INSERT INTO account (client_identification, number, type, initial_balance, state)
+-- INSERT INTO account (client_identification, number, type, initial_balance, status)
 -- VALUES
 -- ('1234567890', '478758', 'SAVES', 2000.0, TRUE),
 -- ('1234567891', '225487', 'CHECKING', 100.0, TRUE),

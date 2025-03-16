@@ -11,7 +11,7 @@ public class ClientService {
   private final WebClient webClient;
 
   public ClientService() {
-    this.webClient = WebClient.builder().baseUrl("http://localhost:8080").build();
+    this.webClient = WebClient.builder().baseUrl("http://person:8080").build();
   }
 
   public Mono<Void> checkClientExistence(String clientIdentification) {
