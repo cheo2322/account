@@ -1,0 +1,399 @@
+{
+	"info": {
+		"_postman_id": "67af1cc7-c6f0-44e5-93b6-1805308b1486",
+		"name": "API de Cuentas y Movimientos",
+		"description": "API para gestionar cuentas y movimientos.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30070675"
+	},
+	"item": [
+		{
+			"name": "cuentas",
+			"item": [
+				{
+					"name": "{accountNumber}",
+					"item": [
+						{
+							"name": "Obtener los detalles de una cuenta específica",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "localhost:8081/test/v1/cuentas/:accountNumber",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"test",
+										"v1",
+										"cuentas",
+										":accountNumber"
+									],
+									"variable": [
+										{
+											"key": "accountNumber",
+											"value": "585545"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Detalles de la cuenta",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/cuentas/:accountNumber",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"cuentas",
+												":accountNumber"
+											],
+											"variable": [
+												{
+													"key": "accountNumber"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"accountNumber\": \"<string>\",\n  \"accountName\": \"<string>\",\n  \"balance\": \"<number>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Crear una nueva cuenta",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"number\": \"585545\",\n  \"clientIdentification\": \"1234567890\",\n  \"type\": \"CHECKING\",\n  \"initialBalance\": 1000.0,\n  \"status\": true\n}\n",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/test/v1/cuentas",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"test",
+								"v1",
+								"cuentas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Cuenta creada exitosamente.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountNumber\": \"<string>\",\n  \"accountName\": \"<string>\",\n  \"balance\": \"<number>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/cuentas",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cuentas"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener todas las cuentas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost:8081/test/v1/cuentas",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"test",
+								"v1",
+								"cuentas"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Lista de cuentas",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/cuentas",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"cuentas"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"balance\": \"<number>\"\n  },\n  {\n    \"accountNumber\": \"<string>\",\n    \"accountName\": \"<string>\",\n    \"balance\": \"<number>\"\n  }\n]"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "movimientos",
+			"item": [
+				{
+					"name": "Crear un movimiento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"type\": \"SAVES\",\n        \"value\": -575.0,\n        \"accountNumber\": \"478758\"\n    }",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/test/v1/movimientos",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"test",
+								"v1",
+								"movimientos"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Movimiento creado exitosamente.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"movementDate\": \"<dateTime>\",\n  \"type\": \"WITHDRAW\",\n  \"value\": \"<number>\",\n  \"balance\": \"<number>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/movimientos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movimientos"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Obtener los movimientos en un rango de fechas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "localhost:8081/test/v1/movimientos?clientIdentification=1234567890&start=2025-03-16&end=2025-03-16",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"test",
+								"v1",
+								"movimientos"
+							],
+							"query": [
+								{
+									"key": "clientIdentification",
+									"value": "1234567890",
+									"description": "(Required)"
+								},
+								{
+									"key": "start",
+									"value": "2025-03-16",
+									"description": "(Required)"
+								},
+								{
+									"key": "end",
+									"value": "2025-03-16",
+									"description": "(Required)"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Lista de movimientos",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/movimientos?clientId=<string>&start=<date>&end=<date>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"movimientos"
+									],
+									"query": [
+										{
+											"key": "clientId",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "start",
+											"value": "<date>",
+											"description": "(Required) "
+										},
+										{
+											"key": "end",
+											"value": "<date>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "[\n  {\n    \"movementDate\": \"<dateTime>\",\n    \"type\": \"SAVE\",\n    \"value\": \"<number>\",\n    \"balance\": \"<number>\"\n  },\n  {\n    \"movementDate\": \"<dateTime>\",\n    \"type\": \"SAVE\",\n    \"value\": \"<number>\",\n    \"balance\": \"<number>\"\n  }\n]"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/test/v1"
+		}
+	]
+}
