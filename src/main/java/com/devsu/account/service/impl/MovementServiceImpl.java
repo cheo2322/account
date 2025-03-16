@@ -41,7 +41,7 @@ public class MovementServiceImpl implements MovementService {
       throw new IllegalMovementException("Movement with value equal to zero.");
     }
 
-    Optional<Movement> lastMovementDB = movementRepository.findTopByOrderByMovementDateDesc();
+    Optional<Movement> lastMovementDB = movementRepository.findTopByOrderByDateDesc();
     if (lastMovementDB.isEmpty()) {
       throw new IllegalMovementException("No movements found.");
     }
