@@ -21,7 +21,7 @@ public class Account {
   @Enumerated(EnumType.STRING)
   private AccountType type;
 
-  private Long initialBalance;
+  private Double initialBalance;
   private Boolean status;
 
   public enum AccountType {

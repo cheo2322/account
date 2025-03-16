@@ -1,10 +1,12 @@
 package com.devsu.account.service.impl;
 
 import com.devsu.account.entity.Account;
+import com.devsu.account.entity.Movement;
 import com.devsu.account.entity.dto.AccountRecord;
 import com.devsu.account.handler.exception.EntityNotFoundException;
 import com.devsu.account.mapper.AccountMapper;
 import com.devsu.account.repository.AccountRepository;
+import com.devsu.account.repository.MovementRepository;
 import com.devsu.account.service.AccountService;
 import com.devsu.account.web.ClientService;
 import java.util.List;
@@ -20,10 +22,16 @@ public class AccountServiceImpl implements AccountService {
 
   private final AccountRepository accountRepository;
   private final ClientService clientService;
+  private final MovementRepository movementRepository;
 
-  public AccountServiceImpl(AccountRepository accountRepository, ClientService clientService) {
+  public AccountServiceImpl(
+      AccountRepository accountRepository,
+      ClientService clientService,
+      MovementRepository movementRepository) {
+
     this.accountRepository = accountRepository;
     this.clientService = clientService;
+    this.movementRepository = movementRepository;
   }
 
   @Override
@@ -41,6 +49,14 @@ public class AccountServiceImpl implements AccountService {
     clientResponse.block(); // TODO: make the whole application reactive
 
     accountRepository.save(account);
+
+    Movement movement = new Movement();
+    movement.setType(Movement.MovementType.SAVE);
+    movement.setValue(accountRecord.initialBalance());
+    movement.setBalance(accountRecord.initialBalance());
+    movement.setAccount(account);
+
+    movementRepository.save(movement);
   }
 
   @Override

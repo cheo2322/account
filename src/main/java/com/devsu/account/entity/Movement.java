@@ -1,10 +1,18 @@
 package com.devsu.account.entity;
 
-import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -16,15 +24,15 @@ public class Movement {
   private Long id;
 
   @Column(name = "movement_date")
-  private LocalDateTime date;
+  private LocalDateTime date = LocalDateTime.now();
 
   @Enumerated(EnumType.STRING)
   private MovementType type;
 
   @Column(name = "movement_value")
-  private Long value;
+  private Double value;
 
-  private Long balance;
+  private Double balance;
 
   @ManyToOne
   @JoinColumn(name = "account_number", referencedColumnName = "number", nullable = false)
