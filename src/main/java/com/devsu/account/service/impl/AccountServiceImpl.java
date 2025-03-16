@@ -101,15 +101,14 @@ public class AccountServiceImpl implements AccountService {
    * @return the new number account.
    */
   private String generateAccountNumber() {
-    StringBuilder accountNumberBuilder = new StringBuilder();
-
     Random random = new Random();
     Optional<Account> accountByNumber;
     String possibleAccountNumber;
 
     do {
-      int randomNumber = 10000000 + random.nextInt(90000000);
-      possibleAccountNumber = "00".concat(String.valueOf(randomNumber));
+      int maxNumber = 999999;
+      int randomNumber = random.nextInt(maxNumber + 1);
+      possibleAccountNumber = String.format("%06d", randomNumber);
 
       accountByNumber = accountRepository.findByNumber(possibleAccountNumber);
     } while (accountByNumber.isPresent());
