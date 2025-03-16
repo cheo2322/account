@@ -1,0 +1,117 @@
+openapi: 3.0.0
+info:
+  title: API de Cuentas y Movimientos
+  description: API para gestionar cuentas y movimientos.
+  version: 1.0.0
+servers:
+  - url: /test/v1
+paths:
+  /cuentas:
+    post:
+      summary: Crear una nueva cuenta
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountRecord'
+      responses:
+        '201':
+          description: Cuenta creada exitosamente.
+    get:
+      summary: Obtener todas las cuentas
+      responses:
+        '200':
+          description: Lista de cuentas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountRecord'
+
+  /cuentas/{accountNumber}:
+    get:
+      summary: Obtener los detalles de una cuenta específica
+      parameters:
+        - name: accountNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalles de la cuenta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountRecord'
+
+  /movimientos:
+    post:
+      summary: Crear un movimiento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MovementRecord'
+      responses:
+        '201':
+          description: Movimiento creado exitosamente.
+    get:
+      summary: Obtener los movimientos en un rango de fechas
+      parameters:
+        - name: clientId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: start
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: end
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Lista de movimientos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MovementRecord'
+
+components:
+  schemas:
+    AccountRecord:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        accountName:
+          type: string
+        balance:
+          type: number
+    MovementRecord:
+      type: object
+      properties:
+        movementDate:
+          type: string
+          format: date-time
+        type:
+          type: string
+          enum:
+            - SAVE
+            - WITHDRAW
+        value:
+          type: number
+        balance:
+          type: number
