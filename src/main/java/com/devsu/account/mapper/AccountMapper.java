@@ -14,4 +14,13 @@ public class AccountMapper {
 
     return account;
   }
+
+  public static AccountRecord accountToRecord(Account account) {
+    return new AccountRecord(
+        account.getNumber(),
+        account.getClientIdentification(),
+        account.getType().toString(),
+        account.getInitialBalance(),
+        account.getStatus());
+  }
 }

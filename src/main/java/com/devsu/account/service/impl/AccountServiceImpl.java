@@ -1,8 +1,8 @@
 package com.devsu.account.service.impl;
 
 import com.devsu.account.entity.Account;
-import com.devsu.account.entity.dto.AccountDto;
 import com.devsu.account.entity.dto.AccountRecord;
+import com.devsu.account.handler.exception.EntityNotFoundException;
 import com.devsu.account.mapper.AccountMapper;
 import com.devsu.account.repository.AccountRepository;
 import com.devsu.account.service.AccountService;
@@ -10,6 +10,8 @@ import com.devsu.account.web.ClientService;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -42,17 +44,40 @@ public class AccountServiceImpl implements AccountService {
   }
 
   @Override
-  public List<AccountDto> getAccounts() {
-    return List.of();
+  public List<AccountRecord> getAccounts() {
+    return accountRepository.findAll().stream()
+        .map(AccountMapper::accountToRecord)
+        .collect(Collectors.toList());
   }
 
   @Override
-  public AccountDto getAccount(String accountNumber) {
-    return null;
+  public AccountRecord getAccount(String accountNumber) {
+    Optional<Account> accountByNumber = accountRepository.findByNumber(accountNumber);
+    if (accountByNumber.isEmpty()) {
+      throw new EntityNotFoundException("Account not found.");
+    }
+
+    return AccountMapper.accountToRecord(accountByNumber.get());
   }
 
   @Override
-  public void updateAccount(AccountRecord accountRecord) {}
+  public void updateAccount(AccountRecord accountRecord) {
+    Optional<Account> accountByNumber = accountRepository.findByNumber(accountRecord.number());
+    if (accountByNumber.isEmpty()) {
+      throw new EntityNotFoundException("Account not found.");
+    }
+
+    Account account = accountByNumber.get();
+
+    if (!StringUtils.isBlank(accountRecord.type())) {
+      account.setType(Account.AccountType.valueOf(accountRecord.type()));
+    }
+
+    Boolean accountStatus = accountRecord.status();
+    if (accountStatus != null && accountStatus != account.getStatus()) {
+      account.setStatus(accountStatus);
+    }
+  }
 
   /**
    * Generate a random account number for new accounts.

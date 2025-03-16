@@ -1,6 +1,5 @@
 package com.devsu.account.controller;
 
-import com.devsu.account.entity.dto.AccountDto;
 import com.devsu.account.entity.dto.AccountRecord;
 import com.devsu.account.service.AccountService;
 import java.util.List;
@@ -26,12 +25,12 @@ public class AccountController {
   }
 
   @GetMapping
-  public ResponseEntity<List<AccountDto>> getAllAccounts() {
+  public ResponseEntity<List<AccountRecord>> getAllAccounts() {
     return ResponseEntity.ok(accountService.getAccounts());
   }
 
   @GetMapping("/{accountNumber}")
-  public ResponseEntity<AccountDto> getAccount(@PathVariable String accountNumber) {
+  public ResponseEntity<AccountRecord> getAccount(@PathVariable String accountNumber) {
     return ResponseEntity.ok(accountService.getAccount(accountNumber));
   }
 

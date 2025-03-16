@@ -1,6 +1,5 @@
 package com.devsu.account.service;
 
-import com.devsu.account.entity.dto.AccountDto;
 import com.devsu.account.entity.dto.AccountRecord;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public interface AccountService {
    *
    * @return A List of all accounts.
    */
-  List<AccountDto> getAccounts();
+  List<AccountRecord> getAccounts();
 
   /**
    * Retrieve an account related to a client by using the identification;
@@ -27,7 +26,7 @@ public interface AccountService {
    * @param accountNumber the number of account to be retrieved;
    * @return the account related to the client.
    */
-  AccountDto getAccount(String accountNumber);
+  AccountRecord getAccount(String accountNumber);
 
   /**
    * Update details from an account.
