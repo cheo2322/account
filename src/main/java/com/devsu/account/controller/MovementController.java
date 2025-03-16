@@ -28,7 +28,7 @@ public class MovementController {
 
   @GetMapping
   public ResponseEntity<List<MovementRecord>> getMovements(
-      @RequestParam("clientId") String clientIdentification,
+      @RequestParam("clientIdentification") String clientIdentification,
       @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
       @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
 

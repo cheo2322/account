@@ -66,12 +66,24 @@ public class MovementServiceImpl implements MovementService {
   }
 
   @Override
-  public List<MovementRecord> getMovements(String accountNumber, LocalDate start, LocalDate end) {
-    return movementRepository
-        .findByAccountNumberAndDateBetween(
-            accountNumber, start.atStartOfDay(), end.atTime(LocalTime.MAX))
-        .stream()
-        .map(MovementMapper::movementToRecord)
+  public List<MovementRecord> getMovements(
+      String clientIdentification, LocalDate start, LocalDate end) {
+
+    List<Account> accountsByClientIdentification =
+        accountRepository.findByClientIdentification(clientIdentification);
+
+    if (accountsByClientIdentification.isEmpty()) {
+      throw new EntityNotFoundException("Accounts not found for the given clientIdentification");
+    }
+
+    return accountsByClientIdentification.stream()
+        .flatMap(
+            account ->
+                movementRepository
+                    .findByAccountNumberAndDateBetween(
+                        account.getNumber(), start.atStartOfDay(), end.atTime(LocalTime.MAX))
+                    .stream()
+                    .map(MovementMapper::movementToRecord))
         .collect(Collectors.toList());
   }
 }

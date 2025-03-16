@@ -17,10 +17,10 @@ public interface MovementService {
   /**
    * Get all movements from a client account, by defining a date range.
    *
-   * @param accountNumber number from the account to get the movements.
+   * @param clientIdentification number from the account to get the movements.
    * @param start the start date in format String start, String end.
    * @param end the end date in format String start, String end.
    * @return A list of movements from the client account into the given range.
    */
-  List<MovementRecord> getMovements(String accountNumber, LocalDate start, LocalDate end);
+  List<MovementRecord> getMovements(String clientIdentification, LocalDate start, LocalDate end);
 }
