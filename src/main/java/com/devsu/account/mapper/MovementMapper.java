@@ -11,4 +11,13 @@ public class MovementMapper {
 
     return movement;
   }
+
+  public static MovementRecord movementToRecord(Movement movement) {
+    return new MovementRecord(
+        movement.getDate(),
+        movement.getType().toString(),
+        movement.getValue(),
+        movement.getBalance(),
+        movement.getAccount().getNumber());
+  }
 }

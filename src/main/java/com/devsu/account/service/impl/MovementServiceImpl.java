@@ -10,8 +10,10 @@ import com.devsu.account.repository.AccountRepository;
 import com.devsu.account.repository.MovementRepository;
 import com.devsu.account.service.MovementService;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -62,8 +64,12 @@ public class MovementServiceImpl implements MovementService {
   }
 
   @Override
-  public List<MovementRecord> getMovements(
-      String clientIdentification, LocalDate start, LocalDate end) {
-    return List.of();
+  public List<MovementRecord> getMovements(String accountNumber, LocalDate start, LocalDate end) {
+    return movementRepository
+        .findByAccountNumberAndDateBetween(
+            accountNumber, start.atStartOfDay(), end.atTime(LocalTime.MAX))
+        .stream()
+        .map(MovementMapper::movementToRecord)
+        .collect(Collectors.toList());
   }
 }

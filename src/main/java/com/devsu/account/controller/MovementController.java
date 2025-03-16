@@ -32,6 +32,6 @@ public class MovementController {
       @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
       @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
 
-      return ResponseEntity.ok(movementService.getMovements(clientIdentification, start, end));
+    return ResponseEntity.ok(movementService.getMovements(clientIdentification, start, end));
   }
 }
